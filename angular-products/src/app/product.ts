@@ -5,7 +5,6 @@ export class Product {
     price: number;
     condition: string;
     category: string;
-  
   }
 
 export const Conditions = ["New", "Used", "Uncontinued"];

@@ -1,5 +1,6 @@
 import { Product, Conditions, Categories } from './product';
 import { Component, Input } from '@angular/core';
+import {CartService} from "./cart/cart.service";
 
 @Component ({
     selector: 'product-detail',
@@ -11,6 +12,7 @@ import { Component, Input } from '@angular/core';
         <div><label>price: </label>{{product.price}}</div>
         <div><label>condition: </label>{{product.condition}}</div>
         <div><label>category: </label>{{product.category}}</div>
+          <div><button (click) = "addToCart(product)">add to cart</button></div>
         
         <h2>Update Product</h2>
         <div>
@@ -48,4 +50,11 @@ export class ProductDetailComponent {
     @Input() product: Product;
     conditions = Conditions;
     categories = Categories;
+
+    constructor(private cartService: CartService){}
+
+    addToCart(product: Product):void{
+      this.cartService.addToCart(this.product);
+    }
+
 }
