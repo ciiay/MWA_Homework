@@ -25,6 +25,8 @@ export class CartService {
     } else {
       for (let i = 0; i < this.cart.length; i++) {
         if (this.cart[i].product.id === productLine.product.id) {
+
+          // use slice(start, number) to delete an element from an array
           this.cart.splice(this.cart.indexOf(productLine), 1);
         }
       }

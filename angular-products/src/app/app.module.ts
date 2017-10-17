@@ -7,6 +7,7 @@ import { AppComponent }  from './app.component';
 import {ProductService} from "./product.service";
 import {CartService} from "./cart/cart.service";
 import {CartComponent} from "./cart/cart.component";
+import {CartSubtotalPipe} from "./cart/cartSubtotal.pipe";
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import {CartComponent} from "./cart/cart.component";
   declarations: [
     AppComponent,
     ProductDetailComponent,
-    CartComponent
+    CartComponent,
+    CartSubtotalPipe
   ],
   providers:[ProductService, CartService],
   bootstrap: [ AppComponent ]

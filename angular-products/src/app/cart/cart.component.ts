@@ -20,19 +20,23 @@ import {CartService} from "./cart.service";
         <td>{{ productLine.product.price }}</td>
         <td>{{ productLine.unit }}</td>
         <td><button (click)="removeFromCart(productLine)" >-</button><button (click)="addToCart(productLine)" >+</button></td>
-        <td>{{ productLine.product.price * productLine.unit }}</td>
+        <td>{{ productLine.product | subTotal: productLine.unit }}</td>
       </tr>
-      <div>
-        <span>Total: {{calTotal()}}</span>
-      </div>
     </table>
+    <div>
+      <span>Total: {{calTotal()}}</span>
+    </div>
   `,
   styles:[`
-    .cart{
+    .cart {
+      border-collapse: collapse;
       width: 50%;
-      border: 2ex;
-      border-color: aqua;
     }
+
+    table, th, td {
+      border: 2px solid aqua;
+    }
+
   `]
 })
 
