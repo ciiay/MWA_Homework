@@ -2,6 +2,7 @@ import { ProductDetailComponent } from './app.product-detail.component';
 import { Product, Conditions, Categories } from './product';
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "./product.service";
+import {ProductLine} from "./cart/productLine";
 
 @Component({
   selector:'app-root',
@@ -16,7 +17,7 @@ import {ProductService} from "./product.service";
       </li>
     </ul>
     <product-detail [product] = "selectedProduct"></product-detail>
-    <cart></cart>
+    <cart [productLine] = "onSelectProdLine"></cart>
 
   `,
   styles: [`
@@ -73,9 +74,11 @@ import {ProductService} from "./product.service";
 export class AppComponent implements OnInit{
   title = 'Product Page';
   products: Product[];
-  conditions = Conditions;
-  categories = Categories;
+  // conditions = Conditions;
+  // categories = Categories;
   selectedProduct: Product;
+  currentProduct: Product;
+  currentProdLine: ProductLine;
 
   constructor(private productService: ProductService){}
 
@@ -87,8 +90,14 @@ export class AppComponent implements OnInit{
     this.selectedProduct = product;
   }
 
+
   ngOnInit(): void {
     this.getProducts();
+  }
+
+
+  onSelectProdLine(): void {
+    this.currentProdLine = new ProductLine(this.currentProduct, 1);
   }
 
  }

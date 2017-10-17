@@ -1,32 +1,44 @@
 import { ProductLine } from './productLine';
 import {Product} from "../product";
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {CartService} from "./cart.service";
 
 @Component({
   selector:"cart",
   template:`
-    <table>
+    <h2>Cart</h2>
+    <table class="cart">
       <tr>
         <td>Product Name</td>
         <td>Price</td>
         <td>Quantity</td>
+        <td>Edit</td>
         <td>Cart subtotal</td>
       </tr>
       <tr *ngFor="let productLine of cart">
         <td>{{ productLine.product.name }}</td>
         <td>{{ productLine.product.price }}</td>
         <td>{{ productLine.unit }}</td>
+        <td><button (click)="removeFromCart(productLine)" >-</button><button (click)="addToCart(productLine)" >+</button></td>
         <td>{{ productLine.product.price * productLine.unit }}</td>
       </tr>
       <div>
         <span>Total: {{calTotal()}}</span>
       </div>
     </table>
-  `
+  `,
+  styles:[`
+    .cart{
+      width: 50%;
+      border: 2ex;
+      border-color: aqua;
+    }
+  `]
 })
 
 export class CartComponent implements OnInit{
+  @Input() currentProduct: Product;
+  @Input() productLine: ProductLine;
   cart: ProductLine[];
   constructor(private cartService: CartService) {}
 
@@ -34,7 +46,13 @@ export class CartComponent implements OnInit{
     this.cart = this.cartService.cart;
   }
 
-  totalPrice: number;
+  removeFromCart(productLine: ProductLine):void {
+    this.cartService.removeFromCart(productLine);
+  }
+
+  addToCart(productLine: ProductLine):void{
+    this.cartService.addToCart(productLine.product);
+  }
 
   calTotal(): number{
     let sum = 0;
@@ -43,4 +61,5 @@ export class CartComponent implements OnInit{
     }
     return sum;
   }
+
 }

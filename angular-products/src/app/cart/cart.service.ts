@@ -18,4 +18,18 @@ export class CartService {
     }
 
 
+
+  removeFromCart(productLine: ProductLine): void{
+    if (productLine.unit > 1) {
+      productLine.unit--;
+    } else {
+      for (let i = 0; i < this.cart.length; i++) {
+        if (this.cart[i].product.id === productLine.product.id) {
+          this.cart.splice(this.cart.indexOf(productLine), 1);
+        }
+      }
+    }
+  }
+
+
 }
