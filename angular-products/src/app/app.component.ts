@@ -1,5 +1,4 @@
-import { ProductDetailComponent } from './app.product-detail.component';
-import { Product, Conditions, Categories } from './product';
+import { Product } from './product';
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "./product.service";
 import {ProductLine} from "./cart/productLine";
@@ -83,7 +82,8 @@ export class AppComponent implements OnInit{
   constructor(private productService: ProductService){}
 
   getProducts():void {
-    this.productService.getProducts().then(products => this.products = products);
+    // this.productService.getProducts().then(products => this.products = products);
+    this.productService.getProducts().subscribe((products) => this.products = products);
   }
 
   onSelect(product: Product): void {
