@@ -3,6 +3,7 @@ import {PRODUCTS} from "./mock-products";
 import {Product} from "./product";
 import {Observable} from "rxjs/Rx";
 import {Subject} from "rxjs/Subject";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class ProductService{
@@ -10,13 +11,26 @@ export class ProductService{
   //   return Promise.resolve(PRODUCTS);
   // }
 
-  private productsSubject = new Subject<Product[]>();
+  private productsSubject = new BehaviorSubject<Product[]>(null);
 
   getProducts(): Observable<Product[]> {
 
-    setTimeout(() => this.productsSubject.next(PRODUCTS), 0);
+    //setTimeout(() => this.productsSubject.next(PRODUCTS), 0);
+    this.productsSubject.next(PRODUCTS);
 
     return this.productsSubject;
+
+  }
+
+  deleteProduct(product: Product){
+    PRODUCTS.splice(PRODUCTS.indexOf(product), 1);
+  }
+
+  addProduct(product: Product):void {
+    PRODUCTS.push(product);
+  }
+
+  updateProduct() {
 
   }
 

@@ -15,7 +15,8 @@ import {ProductLine} from "./cart/productLine";
         <span class="badge">{{product.id}}</span> {{product.name}}
       </li>
     </ul>
-    <product-detail [product] = "selectedProduct"></product-detail>
+    <product-detail [product] = "selectedProduct" (deleteRequest) = "deleteProduct($event)"></product-detail>
+    <product-form [products]="products" (addRequest) = "addProduct($event)"></product-form>
     <cart [productLine] = "onSelectProdLine"></cart>
 
   `,
@@ -67,6 +68,9 @@ import {ProductLine} from "./cart/productLine";
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
   }
+    .ng-invalid {
+      color: red;
+    }
 `]
 })
 
@@ -98,6 +102,14 @@ export class AppComponent implements OnInit{
 
   onSelectProdLine(): void {
     this.currentProdLine = new ProductLine(this.currentProduct, 1);
+  }
+
+  deleteProduct(product: Product):void {
+    this.productService.deleteProduct(product);
+  }
+
+  addProduct(product: Product):void {
+    this.productService.addProduct(product);
   }
 
  }

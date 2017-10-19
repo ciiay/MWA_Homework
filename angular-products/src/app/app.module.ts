@@ -8,6 +8,7 @@ import {ProductService} from "./product.service";
 import {CartService} from "./cart/cart.service";
 import {CartComponent} from "./cart/cart.component";
 import {CartSubtotalPipe} from "./cart/cartSubtotal.pipe";
+import {ProductFormComponent} from "./product-form.component";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {CartSubtotalPipe} from "./cart/cartSubtotal.pipe";
     AppComponent,
     ProductDetailComponent,
     CartComponent,
+    ProductFormComponent,
     CartSubtotalPipe
   ],
   providers:[ProductService, CartService],

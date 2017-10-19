@@ -1,5 +1,5 @@
 import { Product, Conditions, Categories } from './product';
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CartService} from "./cart/cart.service";
 
 @Component ({
@@ -13,6 +13,8 @@ import {CartService} from "./cart/cart.service";
         <div><label>condition: </label>{{product.condition}}</div>
         <div><label>category: </label>{{product.category}}</div>
           <div><button (click) = "addToCart(product)">add to cart</button></div>
+          <br>
+          <div><button (click) = "requestDelete()">Delete Product</button></div>
         
         <h2>Update Product</h2>
         <div>
@@ -48,6 +50,7 @@ import {CartService} from "./cart/cart.service";
 
 export class ProductDetailComponent {
     @Input() product: Product;
+    @Output() deleteRequest = new EventEmitter<Product>();
     conditions = Conditions;
     categories = Categories;
 
@@ -55,6 +58,10 @@ export class ProductDetailComponent {
 
     addToCart(product: Product):void{
       this.cartService.addToCart(this.product);
+    }
+
+    requestDelete():void {
+      this.deleteRequest.emit(this.product);
     }
 
 }
